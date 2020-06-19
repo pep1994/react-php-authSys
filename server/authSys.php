@@ -49,7 +49,16 @@
             }
          }
 
-         public function logout() {}
+         public function logout($token) {
+            try {
+                $q = "DELETE FROM UtentiLoggati WHERE token = :token";
+                $rq = $this -> conn -> prepare($q);
+                $rq -> bindParam(":token", $token, PDO::PARAM_STR);
+                $rq -> execute();
+            } catch(PDOException $e) {
+               return $e -> getMessage();
+            }
+         }
 
          public function logged($token) {
              try {
