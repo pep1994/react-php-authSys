@@ -4,14 +4,14 @@ import {Link, Redirect} from 'react-router-dom';
 export class Admin extends Component {
     constructor(props){
         super(props);
-        const token = localStorage.getItem('token');
-        let loggedIn = false;
-        if (token != null) {
-             loggedIn = true;
-        }         
-        this.state = {
-            loggedIn: loggedIn
-        }
+        // const token = localStorage.getItem('token');
+        // let loggedIn = false;
+        // if (token != null) {
+        //      loggedIn = true;
+        // }         
+        // this.state = {
+        //     loggedIn: loggedIn
+        // }
     }
     render() {
         if (this.state.loggedIn) {

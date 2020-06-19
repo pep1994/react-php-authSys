@@ -1,6 +1,6 @@
 <?php
-    include __DIR__ . "/authSys.php";
     session_start();
+    include __DIR__ . "/authSys.php";
     $dsn = "mysql:host=localhost;dbname=auth_system;charset=utf8";
     try{
         $PDO_conn = new PDO($dsn, 'root', 'root');

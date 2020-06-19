@@ -1,19 +1,28 @@
 import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom'
+import { auth } from './AuthLogin';
 
-
-export class Profile extends Component {
+ class Profile extends Component {
     constructor(props){
         super(props);
-        const token = localStorage.getItem('token');
-        let loggedIn = false;
-        if (token != null) {
-             loggedIn = true;
-             console.log(localStorage);           
-        }         
         this.state = {
-            loggedIn: loggedIn
+            loggedIn: true
         }
+    }
+    componentDidMount() {
+        const token = localStorage.getItem('token');
+            auth(token).then(res => {
+                console.log(res)
+                if (!res.logged) {
+                    this.setState({
+                        loggedIn: false
+                    })
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                
+            }) 
     }
     render() {
         if (this.state.loggedIn) {
