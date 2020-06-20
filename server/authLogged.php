@@ -13,9 +13,9 @@ $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) 
         $decoded = json_decode($content, true);
 
         try {
-            if ($logged = $auth -> logged($decoded['token'])) {
+            if ($logged_id = $auth -> logged($decoded['token'])) {
                 $res['logged'] = true;
-                $res['data'] = "Utente loggato";
+                $res['data'] = $logged_id;
             }
         } catch (Exception $e) {
             $res['data'] = $e -> getMessage();

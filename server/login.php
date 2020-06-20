@@ -13,12 +13,16 @@
         $decoded = json_decode($content, true);
 
         try {
-            $token = $auth -> login($decoded['username'], $decoded['password']);
-            $res['data'] = $token;
+            $user = $auth -> login($decoded['username'], $decoded['password']);
+            $res['data'] = $user;
+        } catch (PDOException $e) {
+            $res['error'] = true;
+            $res['data'] = "Errore interno, riprovare più tardi";
         } catch (Exception $e) {
             $res['error'] = true;
             $res['data'] = $e -> getMessage();
         }
+        
         echo json_encode($res);
     }
 

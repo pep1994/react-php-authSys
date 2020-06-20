@@ -12,5 +12,7 @@ export async function auth(token) {
     }
     const rawData = await fetch(url, options);
     const data = await rawData.json();
+    console.log(data)
     return data;
+    
 }

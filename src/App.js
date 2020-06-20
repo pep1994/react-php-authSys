@@ -19,7 +19,7 @@ function App() {
       <Route exact path="/login" component={Login}/>
       <Route exact path="/signin" component={Signin}/> 
       <Route exact path="/logout" component={Logout}/> 
-      <Route exact path="/profile" component={Profile}/> 
+      <Route exact path="/profile/:id" component={Profile}/> 
     </Router>
   );
 }

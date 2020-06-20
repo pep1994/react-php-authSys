@@ -10,7 +10,8 @@ export class Login extends Component {
             password: "",
             loggedIn: false,
             error: false,
-            errorMsg: ""
+            errorMsg: "",
+            id: ""
         }
         console.log(this.state.loggedIn);
 
@@ -24,7 +25,8 @@ export class Login extends Component {
             console.log(res)
             if (res.logged) {
                 this.setState({
-                    loggedIn: true
+                    loggedIn: true,
+                    id: res.data
                 })
             }
 
@@ -69,9 +71,10 @@ export class Login extends Component {
                     errorMsg: res.data
                 })
             } else {
-                localStorage.setItem('token', res.data);
+                localStorage.setItem('token', res.data.token);
                 console.log(localStorage);
                 this.setState({
+                    id: res.data.user_id,
                     loggedIn: true
                 })
 
@@ -85,11 +88,11 @@ export class Login extends Component {
 
     render() {
         if (this.state.loggedIn) {
-            return <Redirect to="/profile" />
+            return <Redirect to={`/profile/${this.state.id}`} />
         } else {
             return (
                 <Fragment>
-                    {this.state.error && <p style={{ color: 'red' }}>{this.state.errorMsg}</p>}
+                    {this.state.error && <p className="text-danger">{this.state.errorMsg}</p>}
 
                     <form >
                         <div className="form-group">
@@ -99,7 +102,7 @@ export class Login extends Component {
                             <input type="password" name="password" placeholder="Inserisci Password" value={this.state.password} onChange={this.changeInput} />
                         </div>
                         <div className="form-group">
-                            <input onClick={this.submitForm} type="button" className="btn btn-info" />
+                            <input onClick={this.submitForm} type="button" className="btn btn-info" value="Login" />
                         </div>
                     </form>
                 </Fragment>
