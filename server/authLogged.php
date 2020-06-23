@@ -13,7 +13,7 @@ $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) 
         $decoded = json_decode($content, true);
 
         try {
-            if ($logged_id = $auth -> logged($decoded['token'])) {
+            if ($logged_id = $auth -> logged($decoded['token'], $decoded['id'])) {
                 $res['logged'] = true;
                 $res['data'] = $logged_id;
             }

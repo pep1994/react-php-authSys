@@ -19,9 +19,10 @@ export class Login extends Component {
 
     componentDidMount() {
         const token = localStorage.getItem('token');
+        const id = localStorage.getItem('id');
         console.log(token);
 
-        auth(token).then(res => {
+        auth(token, id).then(res => {
             console.log(res)
             if (res.logged) {
                 this.setState({
@@ -72,6 +73,7 @@ export class Login extends Component {
                 })
             } else {
                 localStorage.setItem('token', res.data.token);
+                localStorage.setItem('id', res.data.user_id);
                 console.log(localStorage);
                 this.setState({
                     id: res.data.user_id,

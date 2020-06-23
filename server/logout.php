@@ -13,7 +13,7 @@
         $decoded = json_decode($content, true);
 
         try {
-            $auth -> logout($decoded['token']);
+            $auth -> logout($decoded['token'], $decoded['id']);
             $res['data'] = "Logout effettuato con successo";
         } catch (Exception $e) {
             $res['error'] = true;

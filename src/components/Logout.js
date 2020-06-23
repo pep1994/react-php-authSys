@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Route } from 'react-router-dom'
 import Profile from './Profile';
-
 
 export class Logout extends Component {
     constructor(props) {
@@ -9,12 +8,12 @@ export class Logout extends Component {
         this.state = {
             error: true
         }
-
     }
-    
-    componentDidMount(){
+
+    componentDidMount() {
         const token = localStorage.getItem('token');
-        this.logout(token)
+        const id = localStorage.getItem('id');
+        this.logout(token, id)
             .then(data => {
                 console.log(data)
                 if (!data.error) {
@@ -27,7 +26,7 @@ export class Logout extends Component {
             )
     }
 
-    async logout(token) {
+    async logout(token, id) {
         const url = "http://localhost:8888/logout.php";
         const options = {
             method: "POST",
@@ -36,7 +35,8 @@ export class Logout extends Component {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                token: token
+                token: token,
+                id: id
             })
         }
         const rawData = await fetch(url, options);
@@ -44,16 +44,11 @@ export class Logout extends Component {
         return data;
     }
     render() {
-        if (this.state.error) {
-            return <Profile/>
-        } else {
-            return (
-                <div>
-                    <Redirect to="/" />
-                </div>
-            )
-        }
-
+        return (
+            <div>
+                <Redirect to="/" />
+            </div>
+        )
     }
 }
 

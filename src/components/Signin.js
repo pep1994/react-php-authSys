@@ -25,9 +25,8 @@ export class Admin extends Component {
 
     componentDidMount() {
         const token = localStorage.getItem('token');
-        console.log(token);
-
-        auth(token).then(res => {
+        const id = localStorage.getItem('id');
+        auth(token, id).then(res => {
             console.log(res)
             if (res.logged) {
                 this.setState({
@@ -121,7 +120,7 @@ export class Admin extends Component {
                             <input type="email" name="email" className="form-control" placeholder="Email" onChange={this.changeInput} value={this.state.email} />
                         </div>
                         <div className="form-group">
-                            <input type="button" className="btn btn-info" name="submit"  onClick={this.submitForm} />
+                            <input type="button" className="btn btn-info" name="submit" value="Vai"  onClick={this.submitForm} />
                         </div>
                     </form>
                 </Fragment>

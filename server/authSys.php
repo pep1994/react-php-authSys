@@ -160,26 +160,27 @@
                 $rq -> execute();
                 $user = compact('user_id', 'token');
 
-                return $user;
-  
+                return $user;  
          }
 
-         public function logout($token) {
+         public function logout($token, $id) {
             try {
-                $q = "DELETE FROM UtentiLoggati WHERE token = :token";
+                $q = "DELETE FROM UtentiLoggati WHERE token = :token AND user_id = :id";
                 $rq = $this -> conn -> prepare($q);
                 $rq -> bindParam(":token", $token, PDO::PARAM_STR);
+                $rq -> bindParam(":id", $id, PDO::PARAM_STR);
                 $rq -> execute();
             } catch(PDOException $e) {
                return $e -> getMessage();
             }
          }
 
-         public function logged($token) {
+         public function logged($token, $id) {
              try {
-                 $q = "SELECT * FROM UtentiLoggati WHERE token = :token";
+                 $q = "SELECT * FROM UtentiLoggati WHERE token = :token AND user_id = :id";
                  $rq = $this -> conn -> prepare($q);
                  $rq -> bindParam(":token", $token, PDO::PARAM_STR);
+                 $rq -> bindParam(":id", $id, PDO::PARAM_STR);
                  $rq -> execute();
     
                  if ($rq -> rowCount() === 0) {

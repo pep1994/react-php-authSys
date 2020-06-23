@@ -13,15 +13,14 @@ class Profile extends Component {
     }
     componentDidMount() {
         const token = localStorage.getItem('token');
-        auth(token).then(res => {
-            console.log(res)
+        const id = this.props.match.params.id;
+        auth(token, id).then(res => {
             if (!res.logged) {
                 this.setState({
                     loggedIn: false
                 })
             }
-            const id = this.props.match.params.id;
-          
+            
             fetch(`http://localhost:8888/getName.php?id=${id}`)
             .then( res => res.json())
             .then( data => {
@@ -37,6 +36,8 @@ class Profile extends Component {
 
             })
     }
+
+   
     render() {
         if (this.state.loggedIn) {
             return (

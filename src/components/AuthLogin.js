@@ -1,4 +1,4 @@
-export async function auth(token) {
+export async function auth(token, id) {
     const url = "http://localhost:8888/authLogged.php";
     const options = {
         method: "POST",
@@ -7,7 +7,8 @@ export async function auth(token) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            token: token
+            token: token,
+            id: id
         })
     }
     const rawData = await fetch(url, options);
